@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+{% if latest_product_list %}
+    <h3>Liste des produits et dates d'expiration </h3>
+    <ul>
+        <li>     GTIN   ||   Date d'expiration</li>
+        {% for product in latest_product_list %}
+        <li>{{ product.product_gtin }} || {{ product.exp_date |date:'Y-m-d'}}</li>  
+        {% endfor %}
+    </ul>
+
+    <p><a href="/products/plist/">Afficher la liste des dates d'expiration <i>triées du plus récent</i></a></p>
+{% else %}
+    <p>Il n'y a aucun produit.</p>
+{% endif %}
+    <p>Pour ajouter un produit ou modifier la date de péremption pour un produit:</p>
+    <i>Si le GTIN existe déjà, alors la date d'expiration sera modifiée. Sinon, le GTIN et la date seront ajoutés.</i>
+    <form action="/products/" method="post">
+        {% csrf_token %}
+        <label for="update_given_gtin">Veuillez entrer un GTIN (8 digits): </label>
+        <input id="update_given_gtin" type="text" name="update_given_gtin" required> <br>
+        <label for="expiration_date">Veuillez entrer une date: </label>
+        <input id="expiration_date" type="date" name="expiration_date" required> <br>
+        <input type="submit" value="Ajouter/modifier">
+    </form>
+</html>

@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+    <h3>Liste des dates d'expiration </h3>
+    <ul>
+    {% for product in product_list %}
+        <li> {{ product.exp_date |date:'Y-m-d'}}</li>  
+    {% endfor %}
+    </ul>
+</html>
